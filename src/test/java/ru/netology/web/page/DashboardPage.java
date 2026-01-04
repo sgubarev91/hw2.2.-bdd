@@ -11,11 +11,11 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class DashboardPage {
-    private ElementsCollection cards = $$(".list__item div");
+    private final ElementsCollection cards = $$(".list__item div");
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
-    private final SelenideElement reloadButtnon = $("[data-test-id='action-reload']");
-    private SelenideElement heading = $("[data-test-id=dashboard]");
+    private final SelenideElement reloadButton = $("[data-test-id='action-reload']");
+    private final SelenideElement heading = $("[data-test-id=dashboard]");
 
     public DashboardPage() {
         heading.shouldBe(visible);
@@ -36,7 +36,7 @@ public class DashboardPage {
     }
 
     public void reloadDashboardPage() {
-      reloadButtnon.click();
+      reloadButton.click();
       heading.shouldBe(visible);
     }
 

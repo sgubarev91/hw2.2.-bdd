@@ -24,18 +24,19 @@ public class MoneyTransferTest {
         var loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor();
+        var verificationCode = DataHelper.getVerificationCode();
         dashboardPage = verificationPage.validVerify(verificationCode);
         firstCardInfo = DataHelper.getFirstCardInfo();
         secondCardInfo = DataHelper.getSecondCardInfo();
         firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
         secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
     }
+
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
       var amount = generateValidAmount(firstCardBalance);
-      var expectedBalanceFirstCard = firstCardBalance + amount;
-      var expectedBalanceSecondCard = secondCardBalance - amount;
+      var expectedBalanceFirstCard = firstCardBalance - amount;
+      var expectedBalanceSecondCard = secondCardBalance + amount;
       var transferPage = dashboardPage.selectCard(secondCardInfo);
       dashboardPage = transferPage.makeValidTransfer(String.valueOf(amount), firstCardInfo);
       dashboardPage.reloadDashboardPage();
